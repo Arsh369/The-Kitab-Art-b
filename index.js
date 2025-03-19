@@ -1,3 +1,4 @@
+console.log("server0");
 const express = require("express");
 const app = express();
 const cors = require("cors");
@@ -12,7 +13,7 @@ app.use(cors({
     origin: ['http://localhost:5173',"https://the-kitab-art.vercel.app"],
     credentials: true
 }))
-
+console.log("server1");
 // routes
 const bookRoutes = require('./src/books/book.route');
 const orderRoutes = require("./src/orders/order.route")
@@ -26,7 +27,7 @@ app.use("/api/admin", adminRoutes)
 
 async function main() {
   await mongoose.connect(process.env.DB_URL);
-  app.use("/", (req, res) => {
+  app.get("/", (req, res) => {
     res.send("Book Store Server is running!");
   });
 }
@@ -36,3 +37,4 @@ main().then(() => console.log("Mongodb connect successfully!")).catch(err => con
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
+console.log("server2");
